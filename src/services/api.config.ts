@@ -10,7 +10,9 @@ export const apiClient: AxiosInstance = axios.create({
     timeout: 10000,
     headers: {
         'Content-Type': 'application/json',
+        'Accept': 'application/json',
     },
+    withCredentials: true, // Asegura el envío de cookies de sesión (JSESSIONID)
 });
 
 // Interceptor para requests

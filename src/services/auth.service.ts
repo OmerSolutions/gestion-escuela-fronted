@@ -9,14 +9,10 @@ class AuthService {
     // Login
     async login(credentials: LoginRequestDto): Promise<LoginResponseDto> {
         try {
-            const formData = new FormData();
-            formData.append('username', credentials.correo);
-            formData.append('password', credentials.contrasena);
-
             const response: AxiosResponse<RespuestaDto<LoginResponseDto>> =
-                await apiClient.post(`${this.endpoint}/login`, formData, {
+                await apiClient.post(`${this.endpoint}/login`, credentials, {
                     headers: {
-                        'Content-Type': 'multipart/form-data',
+                        'Content-Type': 'application/json',
                     },
                 });
 
