@@ -1,5 +1,5 @@
 import axios, {AxiosInstance, AxiosResponse, InternalAxiosRequestConfig} from 'axios';
-import {RespuestaDto} from "@/types";
+import {RespuestaDto} from '../types';
 
 // Configuración base de Axios
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import {useAuth} from "@/AuthContext.tsx";
-import {NotificationContainer} from "@/NotificationContainer.tsx";
-import {Header} from "@/Header.tsx";
-import {Sidebar} from "@/SliderBar.tsx";
+import { useAuth } from '../context/AuthContext';
+import { NotificationContainer } from '../components/NotificationContainer';
+import { Header } from '../components/Header';
+import { Sidebar } from '../components/SliderBar';
 
 export const MainLayout: React.FC = () => {
     const { user } = useAuth();

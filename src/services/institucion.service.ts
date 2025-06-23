@@ -1,6 +1,6 @@
-import { BaseService } from './base.service.ts';
-import { apiClient, handleApiResponse, handleApiError } from './api.config.ts';
-import {InstitucionDto} from "@types/institucion.types.ts";
+import { BaseService } from './base.service';
+import { apiClient, handleApiResponse, handleApiError } from './api.config';
+import { InstitucionDto } from '../types/institucion.types';
 
 class InstitucionService extends BaseService<InstitucionDto> {
     constructor() {

@@ -1,13 +1,10 @@
-import React, {useState, useEffect} from 'react';
-import {Link} from 'react-router-dom';
-import {usuarioService} from '@services/usuario.service';
-import {alumnoService} from '@services/alumno.service';
-import {cursoService} from '@services/curso.service';
-import {ROUTES} from '@utils/constants';
-import {formatters} from '@utils/formatters';
-import {useAuth} from "@/AuthContext.tsx";
-import {useNotification} from "@/NotificationContext.tsx";
-import {Loading} from "@/Loading.tsx";
+import React, { useState, useEffect } from 'react';
+import { usuarioService } from '../services/usuario.service';
+import { alumnoService } from '../services/alumno.service';
+import { cursoService } from '../services/curso.service';
+import { useAuth } from '../context/AuthContext';
+import { useNotification } from '../context/NotificationContext';
+import { Loading } from './Loading';
 
 interface DashboardStats {
     totalUsuarios: number;

@@ -1,5 +1,5 @@
-import { BaseService } from './base.service.ts';
-import { apiClient, handleApiResponse, handleApiError } from './api.config.ts';
+import { BaseService } from './base.service';
+import { apiClient, handleApiResponse, handleApiError } from './api.config';
 import { CursoDto } from '../types/curso.types';
 
 class CursoService extends BaseService<CursoDto> {

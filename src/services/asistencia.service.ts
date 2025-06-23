@@ -1,4 +1,4 @@
-import { apiClient, handleApiResponse, handleApiError } from './api.config.ts';
+import { apiClient, handleApiResponse, handleApiError } from './api.config';
 import { AsistenciaDto, ReporteAsistenciaDto } from '../types/asistencia.types';
 
 class AsistenciaService {

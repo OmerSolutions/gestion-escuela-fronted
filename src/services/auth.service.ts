@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
-import { apiClient, handleApiResponse, handleApiError } from './api.config.ts';
-import {LoginRequestDto, LoginResponseDto, UsuarioDto} from "../types/usuario.types";
-import {RespuestaDto} from "@/types";
+import { apiClient, handleApiResponse, handleApiError } from './api.config';
+import { LoginRequestDto, LoginResponseDto, UsuarioDto } from '../types/usuario.types';
+import { RespuestaDto } from '../types';
 
 class AuthService {
     private readonly endpoint = '/auth';

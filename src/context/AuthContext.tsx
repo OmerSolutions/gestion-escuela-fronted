@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useReducer, useEffect, ReactNode } from 'react';
-import { authService } from '@services/auth.service';
-import {UsuarioDto} from "@/types/usuario.types";
+import { authService } from '../services/auth.service';
+import { UsuarioDto } from '../types/usuario.types';
 
 // Tipos para el estado de autenticación
 interface AuthState {

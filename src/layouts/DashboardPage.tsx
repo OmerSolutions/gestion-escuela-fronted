@@ -1,8 +1,8 @@
 import React from 'react';
-import { AdminDashboard } from './AdminDashboard';
-import { AlumnoDashboard } from './AlumnoDashboard';
-import {useAuth} from "@/AuthContext.tsx";
-import {ProfesorDashboard} from "@/ProfesorDashBoard.tsx";
+import { AdminDashboard } from '../components/AdminDashboard';
+import { AlumnoDashboard } from '../components/AlumnoDashboard';
+import { useAuth } from '../context/AuthContext';
+import { ProfesorDashboard } from '../components/ProfesorDashBoard';
 
 export const DashboardPage: React.FC = () => {
     const { user } = useAuth();

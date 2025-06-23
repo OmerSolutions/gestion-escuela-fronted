@@ -1,14 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
-import { ROUTES } from '@utils/constants';
+import { ROUTES } from './utils/constants';
 import './App.css';
-import {AuthProvider} from "@/AuthContext.tsx";
-import {NotificationProvider} from "@/NotificationContext.tsx";
-import {MainLayout} from "@/MainLayout.tsx";
-import {LoginPage} from "@/Login.tsx";
-import {ProtectedRoute} from "@/ProtectedRoute.tsx";
-import {DashboardPage} from "@/DashboardPage.tsx";
+import { AuthProvider } from './context/AuthContext';
+import { NotificationProvider } from './context/NotificationContext';
+import { MainLayout } from './layouts/MainLayout';
+import { LoginPage } from './pages/Login';
+import { ProtectedRoute } from './components/ProtectedRoute';
+import { DashboardPage } from './layouts/DashboardPage';
 
 const App: React.FC = () => {
     return (

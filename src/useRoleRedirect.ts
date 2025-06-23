@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ROUTES } from '@utils/constants';
-import {useAuth} from "@/AuthContext.tsx";
+import { ROUTES } from './utils/constants';
+import { useAuth } from './context/AuthContext';
 
 export const useRoleRedirect = () => {
     const { user, isAuthenticated } = useAuth();

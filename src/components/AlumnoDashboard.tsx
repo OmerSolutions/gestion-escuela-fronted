@@ -1,18 +1,14 @@
-import React, {useEffect} from 'react';
-import {Link} from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { alumnoService } from '../services/alumno.service';
+import { asistenciaService } from '../services/asistencia.service';
+import { materialService } from '../services/material.service';
+import { useApi } from '../hooks/useApi';
+import { AsistenciaDto } from '../types/asistencia.types';
+import { MaterialDto } from '../types/material.types';
+import { useAuth } from '../context/AuthContext';
+import { useNotification } from '../context/NotificationContext';
+import { Loading } from './Loading';
 
-
-import {ROUTES} from '@utils/constants';
-import {formatters} from '@utils/formatters';
-import {useAuth} from "@/AuthContext.tsx";
-import {useNotification} from "@/NotificationContext.tsx";
-import {Loading} from "@/Loading.tsx";
-import {alumnoService} from "@/services/alumno.service";
-import {asistenciaService} from "@/services/asistencia.service";
-import {materialService} from "@/services/material.service";
-import {useApi} from "@/hooks/useApi";
-import {AsistenciaDto} from "@/types/asistencia.types";
-import {MaterialDto} from "@/types/material.types";
 
 interface AlumnoStats {
     asistenciasPresente: number;

@@ -1,4 +1,4 @@
-import { apiClient, handleApiResponse, handleApiError } from './api.config.ts';
+import { apiClient, handleApiResponse, handleApiError } from './api.config';
 import { MaterialDto } from '../types/material.types';
 
 class MaterialService {

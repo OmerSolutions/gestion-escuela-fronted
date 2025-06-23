@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { validators, validationMessages } from './utils/validator';
-import { ROUTES } from './utils/constants';
-import { useAuth } from "./AuthContext";
-import { useNotification } from "./NotificationContext";
-import { Loading } from "./Loading";
+import { validators, validationMessages } from '../utils/validator';
+import { ROUTES } from '../utils/constants';
+import { useAuth } from '../context/AuthContext';
+import { useNotification } from '../context/NotificationContext';
+import { Loading } from '../components/Loading';
 
 interface LoginForm {
     correo: string;
@@ -25,15 +25,8 @@ export const LoginPage: React.FC = () => {
         correo: '',
         contrasena: '',
     });
-
     const [errors, setErrors] = useState<FormErrors>({});
     const [isSubmitting, setIsSubmitting] = useState(false);
-
-    // Redirigir si ya está autenticado
-    if (isAuthenticated) {
-        const from = location.state?.from?.pathname || ROUTES.DASHBOARD;
-        return <Navigate to={from} replace />;
-    }
 
     // Limpiar errores cuando cambie el formulario
     useEffect(() => {
@@ -41,6 +34,12 @@ export const LoginPage: React.FC = () => {
             clearError();
         }
     }, [form, error, clearError]);
+
+    // Redirigir si ya está autenticado
+    if (isAuthenticated) {
+        const from = location.state?.from?.pathname || ROUTES.DASHBOARD;
+        return <Navigate to={from} replace />;
+    }
 
     // Validar formulario
     const validateForm = (): boolean => {

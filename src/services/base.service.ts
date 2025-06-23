@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
-import { apiClient, handleApiResponse, handleApiError } from './api.config.ts';
-import { RespuestaDto, RespuestaPaginadaDto } from '@/types'
+import { apiClient, handleApiResponse, handleApiError } from './api.config';
+import { RespuestaDto, RespuestaPaginadaDto } from '../types';
 
 export abstract class BaseService<T, CreateDto = Partial<T>, UpdateDto = Partial<T>> {
     protected endpoint: string;

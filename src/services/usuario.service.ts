@@ -1,7 +1,7 @@
-import { BaseService } from './base.service.ts';
-import { apiClient, handleApiResponse, handleApiError } from './api.config.ts';
+import { BaseService } from './base.service';
+import { apiClient, handleApiResponse, handleApiError } from './api.config';
 import { UsuarioDto } from '../types/usuario.types';
-import {RolUsuario} from "@/types";
+import { RolUsuario } from '../types';
 
 class UsuarioService extends BaseService<UsuarioDto> {
     constructor() {
