@@ -11,6 +11,7 @@ export interface UsuarioDto {
     fechaRegistro?: string;
     institucionId: number;
     institucionNombre?: string;
+    dni?: string; // Relación con AlumnoDto
 }
 
 export interface LoginRequestDto {

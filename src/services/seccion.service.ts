@@ -1,6 +1,6 @@
 import { BaseService } from './base.service.ts';
 import { apiClient, handleApiResponse, handleApiError } from './api.config.ts';
-import {SeccionDto} from "@types/seccion.types.ts";
+import { SeccionDto } from '../types/seccion.types';
 
 class SeccionService extends BaseService<SeccionDto> {
     constructor() {
@@ -32,6 +32,35 @@ class SeccionService extends BaseService<SeccionDto> {
         try {
             const response = await apiClient.get(`${this.endpoint}/institucion/${institucionId}`);
             return handleApiResponse(response);
+        } catch (error) {
+            throw new Error(handleApiError(error));
+        }
+    }
+
+    // Crear sección
+    async crear(seccion: SeccionDto): Promise<SeccionDto> {
+        try {
+            const response = await apiClient.post(this.endpoint, seccion);
+            return handleApiResponse(response);
+        } catch (error) {
+            throw new Error(handleApiError(error));
+        }
+    }
+
+    // Actualizar sección
+    async actualizar(id: number, seccion: SeccionDto): Promise<SeccionDto> {
+        try {
+            const response = await apiClient.put(`${this.endpoint}/${id}`, seccion);
+            return handleApiResponse(response);
+        } catch (error) {
+            throw new Error(handleApiError(error));
+        }
+    }
+
+    // Eliminar sección
+    async eliminar(id: number): Promise<void> {
+        try {
+            await apiClient.delete(`${this.endpoint}/${id}`);
         } catch (error) {
             throw new Error(handleApiError(error));
         }

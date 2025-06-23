@@ -1,6 +1,6 @@
 import { BaseService } from './base.service.ts';
 import { apiClient, handleApiResponse, handleApiError } from './api.config.ts';
-import {AlumnoDto} from "@types/alumno.types.ts";
+import { AlumnoDto } from '../types/alumno.types';
 
 class AlumnoService extends BaseService<AlumnoDto, AlumnoDto, AlumnoDto> {
     constructor() {
@@ -73,6 +73,16 @@ class AlumnoService extends BaseService<AlumnoDto, AlumnoDto, AlumnoDto> {
     async eliminar(dni: string): Promise<void> {
         try {
             await apiClient.delete(`${this.endpoint}/${dni}`);
+        } catch (error) {
+            throw new Error(handleApiError(error));
+        }
+    }
+
+    // Listar todos los alumnos (sobrescribe el de BaseService)
+    async obtenerTodos(): Promise<AlumnoDto[]> {
+        try {
+            const response = await apiClient.get(this.endpoint);
+            return handleApiResponse(response);
         } catch (error) {
             throw new Error(handleApiError(error));
         }

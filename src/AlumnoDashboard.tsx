@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {Link} from 'react-router-dom';
 
 
@@ -7,6 +7,12 @@ import {formatters} from '@utils/formatters';
 import {useAuth} from "@/AuthContext.tsx";
 import {useNotification} from "@/NotificationContext.tsx";
 import {Loading} from "@/Loading.tsx";
+import {alumnoService} from "@/services/alumno.service";
+import {asistenciaService} from "@/services/asistencia.service";
+import {materialService} from "@/services/material.service";
+import {useApi} from "@/hooks/useApi";
+import {AsistenciaDto} from "@/types/asistencia.types";
+import {MaterialDto} from "@/types/material.types";
 
 interface AlumnoStats {
     asistenciasPresente: number;
@@ -16,42 +22,54 @@ interface AlumnoStats {
 }
 
 export const AlumnoDashboard: React.FC = () => {
-    const {user} = useAuth();
-    const {showError} = useNotification();
-    const [stats, setStats] = useState<AlumnoStats>({
-        asistenciasPresente: 0,
-        asistenciasAusente: 0,
-        materialesDisponibles: 0,
-        proximasClases: 0,
-    });
-    const [loading, setLoading] = useState(true);
+    const { user } = useAuth();
+    const { showError } = useNotification();
 
-    useEffect(() => {
-        loadDashboardData();
-    }, []);
+    // Si no hay usuario, mostrar loading (o podrías redirigir a login si tu lógica lo requiere)
+    if (!user) {
+        return <Loading message="Cargando usuario..." />;
+    }
 
-    const loadDashboardData = async () => {
-        try {
-            setLoading(true);
+    // Llamadas a servicios usando useApi
+    const {
+        data: alumno,
+        loading: loadingAlumno,
+        error: errorAlumno
+    } = useApi(() => user?.dni ? alumnoService.obtenerPorId(user.dni) : Promise.resolve(undefined), { immediate: !!user?.dni });
 
-            // TODO: Implementar servicios para obtener datos del alumno
-            // Por ahora usamos datos de ejemplo
-            setStats({
-                asistenciasPresente: 85,
-                asistenciasAusente: 5,
-                materialesDisponibles: 12,
-                proximasClases: 3,
-            });
-        } catch (error) {
-            console.error('Error loading dashboard data:', error);
-            showError('Error', 'No se pudieron cargar las estadísticas del dashboard');
-        } finally {
-            setLoading(false);
-        }
+    const {
+        data: asistencias = [],
+        loading: loadingAsistencias,
+        error: errorAsistencias
+    } = useApi<AsistenciaDto[]>(() => user?.dni ? asistenciaService.obtenerPorAlumno(user.dni) : Promise.resolve([]), { immediate: !!user?.dni });
+
+    const {
+        data: materiales = [],
+        loading: loadingMateriales,
+        error: errorMateriales
+    } = useApi<MaterialDto[]>(() => user?.id ? materialService.obtenerPorAlumno(user.id) : Promise.resolve([]), { immediate: !!user?.id });
+
+    // Calcular estadísticas reales
+    const stats: AlumnoStats = {
+        asistenciasPresente: (asistencias ?? []).filter(a => a.estado === 'Presente').length,
+        asistenciasAusente: (asistencias ?? []).filter(a => a.estado === 'Ausente').length,
+        materialesDisponibles: (materiales ?? []).length,
+        proximasClases: 0 // Puedes implementar lógica real si tienes endpoint
     };
+
+    const loading = loadingAlumno || loadingAsistencias || loadingMateriales;
+    const hasError = errorAlumno || errorAsistencias || errorMateriales;
 
     if (loading) {
         return <Loading message="Cargando dashboard..."/>;
+    }
+    if (hasError) {
+        showError('Error', 'No se pudieron cargar las estadísticas del dashboard');
+        return (
+            <div className="bg-white rounded-lg shadow p-6 text-center text-red-600 font-semibold">
+                Ocurrió un error al cargar el dashboard. Por favor, intenta recargar la página o contacta al administrador.
+            </div>
+        );
     }
 
     const quickActions = [
@@ -116,9 +134,10 @@ export const AlumnoDashboard: React.FC = () => {
         },
     ];
 
-    const porcentajeAsistencia = Math.round(
-        (stats.asistenciasPresente / (stats.asistenciasPresente + stats.asistenciasAusente)) * 100
-    );
+    const totalAsistencias = stats.asistenciasPresente + stats.asistenciasAusente;
+    const porcentajeAsistencia = totalAsistencias > 0
+        ? Math.round((stats.asistenciasPresente / totalAsistencias) * 100)
+        : 0;
 
     return (
         <div className="space-y-6">
