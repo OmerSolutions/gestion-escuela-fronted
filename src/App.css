@@ -127,6 +127,38 @@
   .badge-secondary {
     @apply bg-gray-100 text-gray-800;
   }
+
+  .bg-primary-color {
+    background-color: var(--primary-color);
+  }
+
+  .hover\:bg-primary-dark:hover {
+    background-color: var(--primary-dark);
+  }
+
+  .focus\:ring-primary-color:focus {
+    box-shadow: 0 0 0 3px var(--primary-color);
+  }
+
+  .text-primary-color {
+    color: var(--primary-color);
+  }
+
+  .text-primary-dark {
+    color: var(--primary-dark);
+  }
+
+  .border-primary-color {
+    border-color: var(--primary-color);
+  }
+
+  .disabled\:bg-primary-color:disabled {
+    background-color: var(--primary-color);
+  }
+
+  .disabled\:cursor-not-allowed:disabled {
+    cursor: not-allowed;
+  }
 }
 
 /* Animaciones personalizadas */
