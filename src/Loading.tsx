@@ -18,15 +18,15 @@ export const Loading: React.FC<LoadingProps> = ({
     };
 
     const containerClasses = fullScreen
-        ? 'fixed inset-0 flex items-center justify-center bg-white bg-opacity-75 z-50'
+        ? 'fixed inset-0 flex items-center justify-center bg-white/80 backdrop-blur-sm z-50'
         : 'flex items-center justify-center p-4';
 
     return (
         <div className={containerClasses}>
-            <div className="flex flex-col items-center gap-md">
-                <div className={`loading ${sizeClasses[size]}`}></div>
+            <div className="flex flex-col items-center gap-3">
+                <div className={`animate-spin rounded-full border-4 border-primary-color border-t-transparent ${sizeClasses[size]}`}></div>
                 {message && (
-                    <p className="text-secondary text-sm">{message}</p>
+                    <p className="text-primary-color text-base font-semibold text-center mt-2">{message}</p>
                 )}
             </div>
         </div>

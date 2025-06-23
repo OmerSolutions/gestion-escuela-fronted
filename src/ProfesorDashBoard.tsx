@@ -92,106 +92,53 @@ export const ProfesorDashboard: React.FC = () => {
     };
 
     if (loading) {
-        return <Loading message="Cargando dashboard..." fullScreen />;
+        return <Loading message="Cargando dashboard..." />;
     }
 
-    const quickActions = [
-        {
-            title: 'Tomar Asistencia',
-            description: 'Registrar asistencia de alumnos',
-            icon: '✅',
-            link: ROUTES.ASISTENCIAS,
-            color: 'bg-green-500',
-        },
-        {
-            title: 'Subir Material',
-            description: 'Compartir material educativo',
-            icon: '📄',
-            link: ROUTES.MATERIALES,
-            color: 'bg-blue-500',
-        },
-        {
-            title: 'Ver Horarios',
-            description: 'Consultar horarios de clases',
-            icon: '🕐',
-            link: ROUTES.HORARIOS,
-            color: 'bg-purple-500',
-        },
-        {
-            title: 'Gestionar Secciones',
-            description: 'Administrar mis secciones',
-            icon: '📋',
-            link: ROUTES.SECCIONES,
-            color: 'bg-orange-500',
-        },
-    ];
-
-    const statsCards = [
-        {
-            title: 'Mis Secciones',
-            value: stats.totalSecciones,
-            icon: '📋',
-            color: 'bg-blue-500',
-        },
-        {
-            title: 'Total Alumnos',
-            value: stats.totalAlumnos,
-            icon: '🎓',
-            color: 'bg-green-500',
-        },
-        {
-            title: 'Asistencias Hoy',
-            value: stats.asistenciasHoy,
-            icon: '✅',
-            color: 'bg-purple-500',
-        },
-        {
-            title: 'Materiales',
-            value: stats.materialesSubidos,
-            icon: '📄',
-            color: 'bg-orange-500',
-        },
-    ];
-
     return (
-        <div className="space-y-6">
-            {/* Header */}
-            <div className="bg-white rounded-lg shadow p-6">
-                <div className="flex items-center justify-between">
-                    <div>
-                        <h1 className="text-2xl font-bold text-gray-900">
-                            ¡Bienvenido, Profesor {formatFullName(user!.nombre, user!.apellido)}!
-                        </h1>
-                        <p className="text-gray-600 mt-1">
-                            Panel de profesor - {formatDate(new Date())}
-                        </p>
+        <div className="p-2 sm:p-6">
+            <h1 className="text-xl sm:text-2xl font-bold mb-6">Panel del Profesor</h1>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="bg-primary-light rounded-xl shadow p-4 flex items-center gap-4">
+                    <div className="bg-primary-color text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl">
+                        <svg className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m6 0A4 4 0 007 9V5a5 5 0 1110 0v4a4 4 0 01-3 3.87z" /></svg>
                     </div>
-                    <div className="text-right">
-                        <p className="text-sm text-gray-500">Institución</p>
-                        <p className="font-medium text-gray-900">{user!.institucionNombre}</p>
+                    <div>
+                        <div className="text-lg font-bold">{stats.totalSecciones}</div>
+                        <div className="text-xs text-gray-700">Secciones</div>
+                    </div>
+                </div>
+                <div className="bg-green-100 rounded-xl shadow p-4 flex items-center gap-4">
+                    <div className="bg-success-color text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl">
+                        <svg className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 14l9-5-9-5-9 5 9 5zm0 7v-7" /></svg>
+                    </div>
+                    <div>
+                        <div className="text-lg font-bold">{stats.totalAlumnos}</div>
+                        <div className="text-xs text-gray-700">Alumnos</div>
+                    </div>
+                </div>
+                <div className="bg-blue-100 rounded-xl shadow p-4 flex items-center gap-4">
+                    <div className="bg-info-color text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl">
+                        <svg className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M8 17l4 4 4-4m0-5V3a1 1 0 00-1-1H9a1 1 0 00-1 1v9m0 0l4 4 4-4" /></svg>
+                    </div>
+                    <div>
+                        <div className="text-lg font-bold">{stats.asistenciasHoy}</div>
+                        <div className="text-xs text-gray-700">Asistencias hoy</div>
+                    </div>
+                </div>
+                <div className="bg-yellow-100 rounded-xl shadow p-4 flex items-center gap-4">
+                    <div className="bg-warning-color text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl">
+                        <svg className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3 17v-2a4 4 0 014-4h10a4 4 0 014 4v2" /></svg>
+                    </div>
+                    <div>
+                        <div className="text-lg font-bold">{stats.materialesSubidos}</div>
+                        <div className="text-xs text-gray-700">Materiales subidos</div>
                     </div>
                 </div>
             </div>
 
-            {/* Estadísticas */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {statsCards.map((card, index) => (
-                    <div key={index} className="bg-white rounded-lg shadow p-6">
-                        <div className="flex items-center">
-                            <div className={`${card.color} rounded-lg p-3 text-white text-2xl`}>
-                                {card.icon}
-                            </div>
-                            <div className="ml-4">
-                                <p className="text-sm font-medium text-gray-600">{card.title}</p>
-                                <p className="text-2xl font-bold text-gray-900">{card.value}</p>
-                            </div>
-                        </div>
-                    </div>
-                ))}
-            </div>
-
             {/* Acciones Rápidas */}
-            <div className="bg-white rounded-lg shadow p-6">
+            <div className="bg-white rounded-lg shadow p-6 mt-6">
                 <h2 className="text-lg font-semibold text-gray-900 mb-4">Acciones Rápidas</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     {quickActions.map((action, index) => (
@@ -213,7 +160,7 @@ export const ProfesorDashboard: React.FC = () => {
             </div>
 
             {/* Mis Secciones */}
-            <div className="bg-white rounded-lg shadow p-6">
+            <div className="bg-white rounded-lg shadow p-6 mt-6">
                 <h2 className="text-lg font-semibold text-gray-900 mb-4">Mis Secciones</h2>
                 {secciones.length > 0 ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

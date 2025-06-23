@@ -24,26 +24,26 @@ export const UsuarioForm: React.FC<UsuarioFormProps> = ({ initialData = {}, onSu
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label className="block text-sm font-medium">Nombre</label>
-        <input className="input input-bordered w-full" value={nombre} onChange={e => setNombre(e.target.value)} required />
+        <label className="block text-sm font-medium mb-1">Nombre</label>
+        <input className="input input-bordered w-full px-3 py-2 rounded-lg" value={nombre} onChange={e => setNombre(e.target.value)} required />
       </div>
       <div>
-        <label className="block text-sm font-medium">Apellido</label>
-        <input className="input input-bordered w-full" value={apellido} onChange={e => setApellido(e.target.value)} required />
+        <label className="block text-sm font-medium mb-1">Apellido</label>
+        <input className="input input-bordered w-full px-3 py-2 rounded-lg" value={apellido} onChange={e => setApellido(e.target.value)} required />
       </div>
       <div>
-        <label className="block text-sm font-medium">Correo</label>
-        <input className="input input-bordered w-full" value={correo} onChange={e => setCorreo(e.target.value)} required type="email" />
+        <label className="block text-sm font-medium mb-1">Correo</label>
+        <input className="input input-bordered w-full px-3 py-2 rounded-lg" value={correo} onChange={e => setCorreo(e.target.value)} required type="email" />
       </div>
       <div>
-        <label className="block text-sm font-medium">Rol</label>
-        <select className="input input-bordered w-full" value={rol} onChange={e => setRol(Number(e.target.value))} required>
+        <label className="block text-sm font-medium mb-1">Rol</label>
+        <select className="input input-bordered w-full px-3 py-2 rounded-lg" value={rol} onChange={e => setRol(Number(e.target.value))} required>
           <option value={RolUsuario.ALUMNO}>Alumno</option>
           <option value={RolUsuario.PROFESOR}>Profesor</option>
           <option value={RolUsuario.ADMIN}>Administrador</option>
         </select>
       </div>
-      <div className="flex gap-2 justify-end">
+      <div className="flex gap-2 justify-end mt-2">
         <button type="button" className="btn btn-secondary" onClick={onCancel} disabled={loading}>Cancelar</button>
         <button type="submit" className="btn btn-primary" disabled={loading}>{loading ? 'Guardando...' : 'Guardar'}</button>
       </div>

@@ -72,51 +72,55 @@ export const MaterialesPage: React.FC = () => {
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4 flex items-center justify-between">
+    <div className="p-2 sm:p-6">
+      <h1 className="text-xl sm:text-2xl font-bold mb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
         Materiales
         {canEdit && (
-          <button className="btn btn-primary" onClick={() => { setEditData(null); setModalOpen(true); }}>
+          <button className="btn btn-primary w-full sm:w-auto" onClick={() => { setEditData(null); setModalOpen(true); }}>
             + Nuevo Material
           </button>
         )}
       </h1>
-      <table className="min-w-full bg-white rounded shadow">
-        <thead>
-          <tr>
-            <th className="p-2">ID</th>
-            <th className="p-2">Título</th>
-            <th className="p-2">Descripción</th>
-            <th className="p-2">Archivo</th>
-            <th className="p-2">Sección</th>
-            <th className="p-2">Subido por</th>
-            {canEdit && <th className="p-2">Acciones</th>}
-          </tr>
-        </thead>
-        <tbody>
-          {materiales?.map(m => (
-            <tr key={m.id} className="border-t">
-              <td className="p-2">{m.id}</td>
-              <td className="p-2">{m.titulo}</td>
-              <td className="p-2">{m.descripcion}</td>
-              <td className="p-2"><a href={m.filePath} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">Ver archivo</a></td>
-              <td className="p-2">{m.seccionNombre}</td>
-              <td className="p-2">{m.uploadedByNombre}</td>
-              {canEdit && (
-                <td className="p-2 flex gap-2">
-                  <button className="btn btn-sm btn-warning" onClick={() => { setEditData(m); setModalOpen(true); }}>Editar</button>
-                  <button className="btn btn-sm btn-error" onClick={() => handleDelete(m.id)} disabled={loadingCrud}>Eliminar</button>
-                </td>
-              )}
+      <div className="overflow-x-auto rounded shadow bg-white">
+        <table className="min-w-full text-sm">
+          <thead>
+            <tr>
+              <th className="p-2 whitespace-nowrap">ID</th>
+              <th className="p-2 whitespace-nowrap">Título</th>
+              <th className="p-2 whitespace-nowrap">Descripción</th>
+              <th className="p-2 whitespace-nowrap">Archivo</th>
+              <th className="p-2 whitespace-nowrap">Fecha</th>
+              <th className="p-2 whitespace-nowrap">Sección</th>
+              <th className="p-2 whitespace-nowrap">Subido por</th>
+              <th className="p-2 whitespace-nowrap">Acciones</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {materiales?.map(m => (
+              <tr key={m.id} className="border-t">
+                <td className="p-2 whitespace-nowrap">{m.id}</td>
+                <td className="p-2 whitespace-nowrap">{m.titulo}</td>
+                <td className="p-2 whitespace-nowrap">{m.descripcion ?? '-'}</td>
+                <td className="p-2 whitespace-nowrap"><a href={m.filePath} className="text-blue-600 underline" target="_blank" rel="noopener noreferrer">Ver archivo</a></td>
+                <td className="p-2 whitespace-nowrap">{m.fechaSubida}</td>
+                <td className="p-2 whitespace-nowrap">{m.seccionNombre ?? '-'}</td>
+                <td className="p-2 whitespace-nowrap">{m.uploadedByNombre ?? '-'}</td>
+                <td className="p-2 flex flex-col sm:flex-row gap-2">
+                  {canEdit && <>
+                    <button className="btn btn-sm btn-warning w-full sm:w-auto" onClick={() => { setEditData(m); setModalOpen(true); }}>Editar</button>
+                    <button className="btn btn-sm btn-error w-full sm:w-auto" onClick={() => handleDelete(m.id)} disabled={loadingCrud}>Eliminar</button>
+                  </>}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       {/* Modal para crear/editar */}
       {modalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
-            <h2 className="text-xl font-bold mb-4">{editData ? 'Editar Material' : 'Nuevo Material'}</h2>
+        <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50 px-2">
+          <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 w-full max-w-md">
+            <h2 className="text-lg sm:text-xl font-bold mb-4">{editData ? 'Editar Material' : 'Nuevo Material'}</h2>
             <MaterialForm
               initialData={editData || undefined}
               onSubmit={handleSave}

@@ -69,54 +69,55 @@ export const SeccionesPage: React.FC = () => {
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4 flex items-center justify-between">
+    <div className="p-2 sm:p-6">
+      <h1 className="text-xl sm:text-2xl font-bold mb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
         Secciones
         {user.rol === RolUsuario.ADMIN && (
-          <button className="btn btn-primary" onClick={() => { setEditData(null); setModalOpen(true); }}>
+          <button className="btn btn-primary w-full sm:w-auto" onClick={() => { setEditData(null); setModalOpen(true); }}>
             + Nueva Sección
           </button>
         )}
       </h1>
-      <table className="min-w-full bg-white rounded shadow">
-        <thead>
-          <tr>
-            <th className="p-2">ID</th>
-            <th className="p-2">Nombre</th>
-            <th className="p-2">Curso</th>
-            <th className="p-2">Profesor</th>
-            <th className="p-2">Institución</th>
-            <th className="p-2">Total Horarios</th>
-            <th className="p-2">Total Materiales</th>
-            {user.rol === RolUsuario.ADMIN && <th className="p-2">Acciones</th>}
-          </tr>
-        </thead>
-        <tbody>
-          {secciones?.map(s => (
-            <tr key={s.id} className="border-t">
-              <td className="p-2">{s.id}</td>
-              <td className="p-2">{s.nombre}</td>
-              <td className="p-2">{s.cursoNombre}</td>
-              <td className="p-2">{s.profesorNombre}</td>
-              <td className="p-2">{s.institucionNombre}</td>
-              <td className="p-2">{s.totalHorarios ?? '-'}</td>
-              <td className="p-2">{s.totalMateriales ?? '-'}</td>
-              {user.rol === RolUsuario.ADMIN && (
-                <td className="p-2 flex gap-2">
-                  <button className="btn btn-sm btn-warning" onClick={() => { setEditData(s); setModalOpen(true); }}>Editar</button>
-                  <button className="btn btn-sm btn-error" onClick={() => handleDelete(s.id)} disabled={loadingCrud}>Eliminar</button>
-                </td>
-              )}
+      <div className="overflow-x-auto rounded shadow bg-white">
+        <table className="min-w-full text-sm">
+          <thead>
+            <tr>
+              <th className="p-2 whitespace-nowrap">ID</th>
+              <th className="p-2 whitespace-nowrap">Nombre</th>
+              <th className="p-2 whitespace-nowrap">Curso</th>
+              <th className="p-2 whitespace-nowrap">Profesor</th>
+              <th className="p-2 whitespace-nowrap">Institución</th>
+              <th className="p-2 whitespace-nowrap">Total Horarios</th>
+              <th className="p-2 whitespace-nowrap">Total Materiales</th>
+              {user.rol === RolUsuario.ADMIN && <th className="p-2 whitespace-nowrap">Acciones</th>}
             </tr>
-          ))}
-        </tbody>
-      </table>
-
+          </thead>
+          <tbody>
+            {secciones?.map(s => (
+              <tr key={s.id} className="border-t">
+                <td className="p-2 whitespace-nowrap">{s.id}</td>
+                <td className="p-2 whitespace-nowrap">{s.nombre}</td>
+                <td className="p-2 whitespace-nowrap">{s.cursoNombre}</td>
+                <td className="p-2 whitespace-nowrap">{s.profesorNombre}</td>
+                <td className="p-2 whitespace-nowrap">{s.institucionNombre}</td>
+                <td className="p-2 whitespace-nowrap">{s.totalHorarios ?? '-'}</td>
+                <td className="p-2 whitespace-nowrap">{s.totalMateriales ?? '-'}</td>
+                {user.rol === RolUsuario.ADMIN && (
+                  <td className="p-2 flex flex-col sm:flex-row gap-2">
+                    <button className="btn btn-sm btn-warning w-full sm:w-auto" onClick={() => { setEditData(s); setModalOpen(true); }}>Editar</button>
+                    <button className="btn btn-sm btn-error w-full sm:w-auto" onClick={() => handleDelete(s.id)} disabled={loadingCrud}>Eliminar</button>
+                  </td>
+                )}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       {/* Modal para crear/editar */}
       {modalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
-            <h2 className="text-xl font-bold mb-4">{editData ? 'Editar Sección' : 'Nueva Sección'}</h2>
+        <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50 px-2">
+          <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 w-full max-w-md">
+            <h2 className="text-lg sm:text-xl font-bold mb-4">{editData ? 'Editar Sección' : 'Nueva Sección'}</h2>
             <SeccionForm
               initialData={editData || undefined}
               onSubmit={handleSave}

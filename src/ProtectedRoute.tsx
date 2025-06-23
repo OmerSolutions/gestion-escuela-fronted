@@ -20,9 +20,9 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     // Mostrar loading mientras se verifica la autenticación
     if (loading) {
         return (
-            <div className="flex items-center justify-center min-h-screen">
-                <div className="loading"></div>
-                <span className="ml-2">Verificando autenticación...</span>
+            <div className="flex flex-col items-center justify-center min-h-screen bg-white/80 backdrop-blur-sm">
+                <div className="animate-spin rounded-full border-4 border-primary-color border-t-transparent w-10 h-10 mb-4"></div>
+                <span className="text-primary-color text-lg font-semibold">Verificando autenticación...</span>
             </div>
         );
     }
@@ -35,8 +35,8 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     // Verificar rol específico
     if (requiredRole !== undefined && user.rol !== requiredRole) {
         return (
-            <div className="flex items-center justify-center min-h-screen">
-                <div className="card text-center">
+            <div className="flex items-center justify-center min-h-screen bg-gray-50">
+                <div className="card text-center p-8 rounded-xl shadow bg-white">
                     <h2 className="text-xl font-bold text-error mb-4">Acceso Denegado</h2>
                     <p className="text-secondary mb-4">
                         No tienes permisos para acceder a esta página.
@@ -55,8 +55,8 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     // Verificar múltiples roles
     if (requiredRoles && !requiredRoles.includes(user.rol)) {
         return (
-            <div className="flex items-center justify-center min-h-screen">
-                <div className="card text-center">
+            <div className="flex items-center justify-center min-h-screen bg-gray-50">
+                <div className="card text-center p-8 rounded-xl shadow bg-white">
                     <h2 className="text-xl font-bold text-error mb-4">Acceso Denegado</h2>
                     <p className="text-secondary mb-4">
                         No tienes permisos para acceder a esta página.

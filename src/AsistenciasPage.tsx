@@ -48,61 +48,64 @@ export const AsistenciasPage: React.FC = () => {
   const renderTable = () => {
     if (showReport) {
       return (
-        <table className="min-w-full bg-white rounded shadow mt-4">
+        <div className="overflow-x-auto rounded shadow bg-white mt-4">
+          <table className="min-w-full text-sm">
+            <thead>
+              <tr>
+                <th className="p-2 whitespace-nowrap">Alumno</th>
+                <th className="p-2 whitespace-nowrap">Sección</th>
+                <th className="p-2 whitespace-nowrap">Total Clases</th>
+                <th className="p-2 whitespace-nowrap">Presentes</th>
+                <th className="p-2 whitespace-nowrap">Ausentes</th>
+                <th className="p-2 whitespace-nowrap">Tardes</th>
+                <th className="p-2 whitespace-nowrap">Justificados</th>
+                <th className="p-2 whitespace-nowrap">% Asistencia</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data?.map((r: ReporteAsistenciaDto, idx) => (
+                <tr key={idx} className="border-t">
+                  <td className="p-2 whitespace-nowrap">{r.alumnoNombre} ({r.alumnoDni})</td>
+                  <td className="p-2 whitespace-nowrap">{r.seccionNombre || '-'}</td>
+                  <td className="p-2 whitespace-nowrap">{r.totalClases}</td>
+                  <td className="p-2 whitespace-nowrap">{r.totalPresentes}</td>
+                  <td className="p-2 whitespace-nowrap">{r.totalAusentes}</td>
+                  <td className="p-2 whitespace-nowrap">{r.totalTardes}</td>
+                  <td className="p-2 whitespace-nowrap">{r.totalJustificados}</td>
+                  <td className="p-2 whitespace-nowrap">{r.porcentajeAsistencia}%</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      );
+    }
+    // Tabla normal
+    return (
+      <div className="overflow-x-auto rounded shadow bg-white mt-4">
+        <table className="min-w-full text-sm">
           <thead>
             <tr>
-              <th className="p-2">Alumno</th>
-              <th className="p-2">Sección</th>
-              <th className="p-2">Total Clases</th>
-              <th className="p-2">Presentes</th>
-              <th className="p-2">Ausentes</th>
-              <th className="p-2">Tardes</th>
-              <th className="p-2">Justificados</th>
-              <th className="p-2">% Asistencia</th>
+              <th className="p-2 whitespace-nowrap">ID</th>
+              <th className="p-2 whitespace-nowrap">Alumno</th>
+              <th className="p-2 whitespace-nowrap">Sección</th>
+              <th className="p-2 whitespace-nowrap">Fecha</th>
+              <th className="p-2 whitespace-nowrap">Estado</th>
             </tr>
           </thead>
           <tbody>
-            {data?.map((r: ReporteAsistenciaDto, idx) => (
+            {data?.map((a: AsistenciaDto, idx) => (
               <tr key={idx} className="border-t">
-                <td className="p-2">{r.alumnoNombre} ({r.alumnoDni})</td>
-                <td className="p-2">{r.seccionNombre || '-'}</td>
-                <td className="p-2">{r.totalClases}</td>
-                <td className="p-2">{r.totalPresentes}</td>
-                <td className="p-2">{r.totalAusentes}</td>
-                <td className="p-2">{r.totalTardes}</td>
-                <td className="p-2">{r.totalJustificados}</td>
-                <td className="p-2">{r.porcentajeAsistencia}%</td>
+                <td className="p-2 whitespace-nowrap">{a.id}</td>
+                <td className="p-2 whitespace-nowrap">{a.alumnoNombre} ({a.alumnoDni})</td>
+                <td className="p-2 whitespace-nowrap">{a.seccionNombre || '-'}</td>
+                <td className="p-2 whitespace-nowrap">{a.fecha}</td>
+                <td className="p-2 whitespace-nowrap">{a.estado}</td>
               </tr>
             ))}
           </tbody>
         </table>
-      );
-    }
-    return (
-      <table className="min-w-full bg-white rounded shadow mt-4">
-        <thead>
-          <tr>
-            <th className="p-2">ID</th>
-            <th className="p-2">Fecha</th>
-            <th className="p-2">Estado</th>
-            <th className="p-2">Alumno</th>
-            <th className="p-2">Sección</th>
-            <th className="p-2">Curso</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data?.map((a: AsistenciaDto) => (
-            <tr key={a.id} className="border-t">
-              <td className="p-2">{a.id}</td>
-              <td className="p-2">{a.fecha}</td>
-              <td className="p-2">{a.estado}</td>
-              <td className="p-2">{a.alumnoNombre || a.alumnoDni}</td>
-              <td className="p-2">{a.seccionNombre}</td>
-              <td className="p-2">{a.cursoNombre}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      </div>
     );
   };
 

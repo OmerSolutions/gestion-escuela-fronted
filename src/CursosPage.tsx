@@ -64,47 +64,49 @@ export const CursosPage: React.FC = () => {
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4 flex items-center justify-between">
+    <div className="p-2 sm:p-6">
+      <h1 className="text-xl sm:text-2xl font-bold mb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
         Cursos
         {user.rol === 2 && (
-          <button className="btn btn-primary" onClick={() => { setEditData(null); setModalOpen(true); }}>
+          <button className="btn btn-primary w-full sm:w-auto" onClick={() => { setEditData(null); setModalOpen(true); }}>
             + Nuevo Curso
           </button>
         )}
       </h1>
-      <table className="min-w-full bg-white rounded shadow">
-        <thead>
-          <tr>
-            <th className="p-2">ID</th>
-            <th className="p-2">Nombre</th>
-            <th className="p-2">Código</th>
-            <th className="p-2">Institución</th>
-            {user.rol === 2 && <th className="p-2">Acciones</th>}
-          </tr>
-        </thead>
-        <tbody>
-          {cursos?.map(c => (
-            <tr key={c.id} className="border-t">
-              <td className="p-2">{c.id}</td>
-              <td className="p-2">{c.nombre}</td>
-              <td className="p-2">{c.codigoInterno}</td>
-              <td className="p-2">{c.institucionNombre}</td>
-              {user.rol === 2 && (
-                <td className="p-2 flex gap-2">
-                  <button className="btn btn-sm btn-warning" onClick={() => { setEditData(c); setModalOpen(true); }}>Editar</button>
-                  <button className="btn btn-sm btn-error" onClick={() => handleDelete(c.id)} disabled={loadingCrud}>Eliminar</button>
-                </td>
-              )}
+      <div className="overflow-x-auto rounded shadow bg-white">
+        <table className="min-w-full text-sm">
+          <thead>
+            <tr>
+              <th className="p-2 whitespace-nowrap">ID</th>
+              <th className="p-2 whitespace-nowrap">Nombre</th>
+              <th className="p-2 whitespace-nowrap">Código Interno</th>
+              <th className="p-2 whitespace-nowrap">Institución</th>
+              <th className="p-2 whitespace-nowrap">Total Secciones</th>
+              <th className="p-2 whitespace-nowrap">Acciones</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {cursos?.map(c => (
+              <tr key={c.id} className="border-t">
+                <td className="p-2 whitespace-nowrap">{c.id}</td>
+                <td className="p-2 whitespace-nowrap">{c.nombre}</td>
+                <td className="p-2 whitespace-nowrap">{c.codigoInterno}</td>
+                <td className="p-2 whitespace-nowrap">{c.institucionNombre ?? '-'}</td>
+                <td className="p-2 whitespace-nowrap">{c.totalSecciones ?? '-'}</td>
+                <td className="p-2 flex flex-col sm:flex-row gap-2">
+                  <button className="btn btn-sm btn-warning w-full sm:w-auto" onClick={() => { setEditData(c); setModalOpen(true); }}>Editar</button>
+                  <button className="btn btn-sm btn-error w-full sm:w-auto" onClick={() => handleDelete(c.id)} disabled={loadingCrud}>Eliminar</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       {/* Modal para crear/editar */}
       {modalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
-            <h2 className="text-xl font-bold mb-4">{editData ? 'Editar Curso' : 'Nuevo Curso'}</h2>
+        <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50 px-2">
+          <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 w-full max-w-md">
+            <h2 className="text-lg sm:text-xl font-bold mb-4">{editData ? 'Editar Curso' : 'Nuevo Curso'}</h2>
             <CursoForm
               initialData={editData || undefined}
               onSubmit={handleSave}

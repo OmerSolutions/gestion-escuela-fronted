@@ -60,149 +60,44 @@ export const AdminDashboard: React.FC = () => {
         return <Loading message="Cargando dashboard..."/>;
     }
 
-    const quickActions = [
-        {
-            title: 'Crear Usuario',
-            description: 'Agregar nuevo usuario al sistema',
-            icon: '👤',
-            link: `${ROUTES.USUARIOS}/nuevo`,
-            color: 'bg-blue-500',
-        },
-        {
-            title: 'Registrar Alumno',
-            description: 'Agregar nuevo alumno',
-            icon: '🎓',
-            link: `${ROUTES.ALUMNOS}/nuevo`,
-            color: 'bg-green-500',
-        },
-        {
-            title: 'Crear Curso',
-            description: 'Agregar nuevo curso',
-            icon: '📚',
-            link: `${ROUTES.CURSOS}/nuevo`,
-            color: 'bg-purple-500',
-        },
-        {
-            title: 'Gestionar Institución',
-            description: 'Configurar institución',
-            icon: '🏫',
-            link: ROUTES.INSTITUCIONES,
-            color: 'bg-orange-500',
-        },
-    ];
-
-    const statsCards = [
-        {
-            title: 'Total Usuarios',
-            value: stats.totalUsuarios,
-            icon: '👥',
-            color: 'bg-blue-500',
-            link: ROUTES.USUARIOS,
-        },
-        {
-            title: 'Total Alumnos',
-            value: stats.totalAlumnos,
-            icon: '🎓',
-            color: 'bg-green-500',
-            link: ROUTES.ALUMNOS,
-        },
-        {
-            title: 'Total Cursos',
-            value: stats.totalCursos,
-            icon: '📚',
-            color: 'bg-purple-500',
-            link: ROUTES.CURSOS,
-        },
-        {
-            title: 'Total Secciones',
-            value: stats.totalSecciones,
-            icon: '📋',
-            color: 'bg-orange-500',
-            link: ROUTES.SECCIONES,
-        },
-    ];
-
     return (
-        <div className="space-y-6">
-            {/* Header */}
-            <div className="bg-white rounded-lg shadow p-6">
-                <div className="flex items-center justify-between">
+        <div className="p-2 sm:p-6">
+            <h1 className="text-xl sm:text-2xl font-bold mb-6">Panel de Administración</h1>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="bg-primary-light rounded-xl shadow p-4 flex items-center gap-4">
+                    <div className="bg-primary-color text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl">
+                        <svg className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m6 0A4 4 0 007 9V5a5 5 0 1110 0v4a4 4 0 01-3 3.87z" /></svg>
+                    </div>
                     <div>
-                        <h1 className="text-2xl font-bold text-gray-900">
-                            ¡Bienvenido, {formatters.formatFullName(user!.nombre, user!.apellido)}!
-                        </h1>
-                        <p className="text-gray-600 mt-1">
-                            Panel de administración - {formatters.formatDate(new Date())}
-                        </p>
-                    </div>
-                    <div className="text-right">
-                        <p className="text-sm text-gray-500">Institución</p>
-                        <p className="font-medium text-gray-900">{user!.institucionNombre}</p>
+                        <div className="text-lg font-bold">{stats.totalUsuarios}</div>
+                        <div className="text-xs text-gray-700">Usuarios</div>
                     </div>
                 </div>
-            </div>
-
-            {/* Estadísticas */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {statsCards.map((card, index) => (
-                    <Link
-                        key={index}
-                        to={card.link}
-                        className="bg-white rounded-lg shadow hover:shadow-md transition-shadow p-6 block"
-                    >
-                        <div className="flex items-center">
-                            <div className={`${card.color} rounded-lg p-3 text-white text-2xl`}>
-                                {card.icon}
-                            </div>
-                            <div className="ml-4">
-                                <p className="text-sm font-medium text-gray-600">{card.title}</p>
-                                <p className="text-2xl font-bold text-gray-900">{card.value}</p>
-                            </div>
-                        </div>
-                    </Link>
-                ))}
-            </div>
-
-            {/* Acciones Rápidas */}
-            <div className="bg-white rounded-lg shadow p-6">
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">Acciones Rápidas</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    {quickActions.map((action, index) => (
-                        <Link
-                            key={index}
-                            to={action.link}
-                            className="border border-gray-200 rounded-lg p-4 hover:border-primary-color hover:shadow-md transition-all"
-                        >
-                            <div className="text-center">
-                                <div
-                                    className={`${action.color} rounded-full w-12 h-12 flex items-center justify-center text-white text-xl mx-auto mb-3`}>
-                                    {action.icon}
-                                </div>
-                                <h3 className="font-medium text-gray-900 mb-1">{action.title}</h3>
-                                <p className="text-sm text-gray-600">{action.description}</p>
-                            </div>
-                        </Link>
-                    ))}
-                </div>
-            </div>
-
-            {/* Actividad Reciente */}
-            <div className="bg-white rounded-lg shadow p-6">
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">Actividad Reciente</h2>
-                <div className="space-y-3">
-                    <div className="flex items-center p-3 bg-gray-50 rounded-lg">
-                        <div className="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
-                        <div className="flex-1">
-                            <p className="text-sm text-gray-900">Sistema iniciado correctamente</p>
-                            <p className="text-xs text-gray-500">{formatters.formatDateTime(new Date())}</p>
-                        </div>
+                <div className="bg-green-100 rounded-xl shadow p-4 flex items-center gap-4">
+                    <div className="bg-success-color text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl">
+                        <svg className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 14l9-5-9-5-9 5 9 5zm0 7v-7" /></svg>
                     </div>
-                    <div className="flex items-center p-3 bg-gray-50 rounded-lg">
-                        <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-                        <div className="flex-1">
-                            <p className="text-sm text-gray-900">Dashboard cargado</p>
-                            <p className="text-xs text-gray-500">{formatters.formatDateTime(new Date())}</p>
-                        </div>
+                    <div>
+                        <div className="text-lg font-bold">{stats.totalAlumnos}</div>
+                        <div className="text-xs text-gray-700">Alumnos</div>
+                    </div>
+                </div>
+                <div className="bg-blue-100 rounded-xl shadow p-4 flex items-center gap-4">
+                    <div className="bg-info-color text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl">
+                        <svg className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M8 17l4 4 4-4m0-5V3a1 1 0 00-1-1H9a1 1 0 00-1 1v9m0 0l4 4 4-4" /></svg>
+                    </div>
+                    <div>
+                        <div className="text-lg font-bold">{stats.totalCursos}</div>
+                        <div className="text-xs text-gray-700">Cursos</div>
+                    </div>
+                </div>
+                <div className="bg-yellow-100 rounded-xl shadow p-4 flex items-center gap-4">
+                    <div className="bg-warning-color text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl">
+                        <svg className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3 17v-2a4 4 0 014-4h10a4 4 0 014 4v2" /></svg>
+                    </div>
+                    <div>
+                        <div className="text-lg font-bold">{stats.totalSecciones}</div>
+                        <div className="text-xs text-gray-700">Secciones</div>
                     </div>
                 </div>
             </div>
