@@ -1,19 +1,18 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { ROUTES } from './utils/constants';
-import { useAuth } from "./AuthContext";
+import { ROUTES } from '../utils/constants';
+import { useAuth } from '../context/AuthContext';
 
 interface MenuItem {
     name: string;
     path: string;
     icon: React.ReactNode;
-    roles: number[]; // Roles que pueden ver este item
-    hideIfAuth?: boolean; // Ocultar si está autenticado
+    roles: number[];
+    hideIfAuth?: boolean;
 }
 
 export const Sidebar: React.FC = () => {
     const { user } = useAuth();
-
     const menuItems: MenuItem[] = [
         {
             name: 'Dashboard',
@@ -110,7 +109,6 @@ export const Sidebar: React.FC = () => {
             ),
             roles: [0, 1, 2],
         },
-        // Rutas públicas solo si no está autenticado
         {
             name: 'Inicio',
             path: ROUTES.HOME,
@@ -134,7 +132,6 @@ export const Sidebar: React.FC = () => {
             hideIfAuth: true,
         },
     ];
-
     return (
         <aside className="fixed left-0 top-0 h-full w-20 sm:w-56 bg-white border-r shadow-lg flex flex-col z-30 transition-all duration-200" aria-label="Sidebar de navegación">
             <div className="flex items-center justify-center h-16 border-b">
@@ -144,8 +141,8 @@ export const Sidebar: React.FC = () => {
             </div>
             <nav className="flex-1 flex flex-col gap-2 mt-4 px-2" aria-label="Menú principal">
                 {menuItems.filter(item => {
-                    if (!user && item.hideIfAuth) return true; // Mostrar públicas si no está autenticado
-                    if (user && item.hideIfAuth) return false; // Ocultar públicas si está autenticado
+                    if (!user && item.hideIfAuth) return true;
+                    if (user && item.hideIfAuth) return false;
                     return user && item.roles.includes(user.rol);
                 }).map(item => (
                     <NavLink

@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ROUTES } from './utils/constants';
-import { useAuth } from "./AuthContext";
-import { useNotification } from "./NotificationContext";
-import { Loading } from "./Loading";
+import { ROUTES } from '../utils/constants';
+import { useAuth } from '../context/AuthContext';
+import { useNotification } from '../context/NotificationContext';
+import { Loading } from './Loading';
 
-// Tipos temporales hasta que tengamos los servicios
 interface SeccionDto {
     id: number;
     nombre: string;
@@ -19,19 +18,6 @@ interface ProfesorStats {
     asistenciasHoy: number;
     materialesSubidos: number;
 }
-// Funciones de formateo inline
-const formatFullName = (nombre: string, apellido: string): string => {
-    return `${nombre || ''} ${apellido || ''}`.trim();
-};
-
-const formatDate = (date: Date): string => {
-    return date.toLocaleDateString('es-ES', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    });
-};
 
 export const ProfesorDashboard: React.FC = () => {
     const { user } = useAuth();
@@ -52,31 +38,13 @@ export const ProfesorDashboard: React.FC = () => {
     const loadDashboardData = async () => {
         try {
             setLoading(true);
-
-            // TODO: Implementar servicios reales
-            // Por ahora usamos datos de ejemplo
+            // Aquí deberías llamar a los servicios reales
             const mockSecciones: SeccionDto[] = [
-                {
-                    id: 1,
-                    nombre: 'Matemáticas A',
-                    cursoNombre: 'Matemáticas',
-                    totalAlumnos: 25
-                },
-                {
-                    id: 2,
-                    nombre: 'Física B',
-                    cursoNombre: 'Física',
-                    totalAlumnos: 20
-                }
+                { id: 1, nombre: 'Matemáticas A', cursoNombre: 'Matemáticas', totalAlumnos: 25 },
+                { id: 2, nombre: 'Física B', cursoNombre: 'Física', totalAlumnos: 20 }
             ];
-
             setSecciones(mockSecciones);
-
-            // Calcular estadísticas
-            const totalAlumnos = mockSecciones.reduce((total, seccion) =>
-                total + (seccion.totalAlumnos || 0), 0
-            );
-
+            const totalAlumnos = mockSecciones.reduce((total, seccion) => total + (seccion.totalAlumnos || 0), 0);
             setStats({
                 totalSecciones: mockSecciones.length,
                 totalAlumnos,
@@ -84,7 +52,6 @@ export const ProfesorDashboard: React.FC = () => {
                 materialesSubidos: 0,
             });
         } catch (error) {
-            console.error('Error loading dashboard data:', error);
             showError('Error', 'No se pudieron cargar las estadísticas del dashboard');
         } finally {
             setLoading(false);
@@ -136,30 +103,6 @@ export const ProfesorDashboard: React.FC = () => {
                     </div>
                 </div>
             </div>
-
-            {/* Acciones Rápidas */}
-            <div className="bg-white rounded-lg shadow p-6 mt-6">
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">Acciones Rápidas</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    {quickActions.map((action, index) => (
-                        <Link
-                            key={index}
-                            to={action.link}
-                            className="border border-gray-200 rounded-lg p-4 hover:border-primary-color hover:shadow-md transition-all"
-                        >
-                            <div className="text-center">
-                                <div className={`${action.color} rounded-full w-12 h-12 flex items-center justify-center text-white text-xl mx-auto mb-3`}>
-                                    {action.icon}
-                                </div>
-                                <h3 className="font-medium text-gray-900 mb-1">{action.title}</h3>
-                                <p className="text-sm text-gray-600">{action.description}</p>
-                            </div>
-                        </Link>
-                    ))}
-                </div>
-            </div>
-
-            {/* Mis Secciones */}
             <div className="bg-white rounded-lg shadow p-6 mt-6">
                 <h2 className="text-lg font-semibold text-gray-900 mb-4">Mis Secciones</h2>
                 {secciones.length > 0 ? (
@@ -167,25 +110,11 @@ export const ProfesorDashboard: React.FC = () => {
                         {secciones.map((seccion) => (
                             <div key={seccion.id} className="border border-gray-200 rounded-lg p-4">
                                 <h3 className="font-medium text-gray-900 mb-2">{seccion.nombre}</h3>
-                                <p className="text-sm text-gray-600 mb-2">
-                                    Curso: {seccion.cursoNombre}
-                                </p>
-                                <p className="text-sm text-gray-600 mb-3">
-                                    Alumnos: {seccion.totalAlumnos || 0}
-                                </p>
+                                <p className="text-sm text-gray-600 mb-2">Curso: {seccion.cursoNombre}</p>
+                                <p className="text-sm text-gray-600 mb-3">Alumnos: {seccion.totalAlumnos || 0}</p>
                                 <div className="flex space-x-2">
-                                    <Link
-                                        to={`${ROUTES.ASISTENCIAS}?seccion=${seccion.id}`}
-                                        className="px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700"
-                                    >
-                                        Asistencia
-                                    </Link>
-                                    <Link
-                                        to={`${ROUTES.MATERIALES}?seccion=${seccion.id}`}
-                                        className="px-3 py-1 bg-gray-600 text-white text-sm rounded hover:bg-gray-700"
-                                    >
-                                        Materiales
-                                    </Link>
+                                    <Link to={`${ROUTES.ASISTENCIAS}?seccion=${seccion.id}`} className="px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700">Asistencia</Link>
+                                    <Link to={`${ROUTES.MATERIALES}?seccion=${seccion.id}`} className="px-3 py-1 bg-gray-600 text-white text-sm rounded hover:bg-gray-700">Materiales</Link>
                                 </div>
                             </div>
                         ))}
@@ -193,9 +122,7 @@ export const ProfesorDashboard: React.FC = () => {
                 ) : (
                     <div className="text-center py-8">
                         <p className="text-gray-500">No tienes secciones asignadas</p>
-                        <p className="text-sm text-gray-400 mt-1">
-                            Contacta al administrador para asignar secciones
-                        </p>
+                        <p className="text-sm text-gray-400 mt-1">Contacta al administrador para asignar secciones</p>
                     </div>
                 )}
             </div>

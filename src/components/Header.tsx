@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ROUTES } from './utils/constants';
-import { useAuth } from "./AuthContext";
+import { ROUTES } from '../utils/constants';
+import { useAuth } from '../context/AuthContext';
 
-// Funciones de formateo inline para evitar dependencias
 const getInitials = (nombre: string, apellido: string): string => {
     return `${nombre?.charAt(0) || ''}${apellido?.charAt(0) || ''}`.toUpperCase();
 };
@@ -29,7 +28,7 @@ export const Header: React.FC = () => {
         try {
             await logout();
         } catch (error) {
-            console.error('Error during logout:', error);
+            // Error de logout
         }
     };
 
@@ -37,18 +36,14 @@ export const Header: React.FC = () => {
         <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-40">
             <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
                 <div className="flex justify-between items-center h-16">
-                    {/* Logo */}
                     <div className="flex items-center">
                         <Link to={ROUTES.HOME || ROUTES.DASHBOARD} className="flex items-center">
                             <div className="w-10 h-10 bg-primary-color rounded-full flex items-center justify-center shadow-md">
                                 <span className="text-white font-bold text-xl">GE</span>
                             </div>
-                            <span className="ml-2 text-lg sm:text-xl font-bold text-gray-900">
-                                Gestión Escolar
-                            </span>
+                            <span className="ml-2 text-lg sm:text-xl font-bold text-gray-900">Gestión Escolar</span>
                         </Link>
                     </div>
-                    {/* User Menu */}
                     {isAuthenticated && user ? (
                         <div className="relative">
                             <button

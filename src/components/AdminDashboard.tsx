@@ -14,8 +14,8 @@ interface DashboardStats {
 }
 
 export const AdminDashboard: React.FC = () => {
-    const {user} = useAuth();
-    const {showError} = useNotification();
+    const { user } = useAuth();
+    const { showError } = useNotification();
     const [stats, setStats] = useState<DashboardStats>({
         totalUsuarios: 0,
         totalAlumnos: 0,
@@ -31,22 +31,18 @@ export const AdminDashboard: React.FC = () => {
     const loadDashboardData = async () => {
         try {
             setLoading(true);
-
-            // Cargar estadísticas en paralelo
             const [usuarios, alumnos, cursos] = await Promise.all([
                 usuarioService.obtenerTodos(),
                 alumnoService.obtenerTodos(),
                 cursoService.obtenerTodos(),
             ]);
-
             setStats({
                 totalUsuarios: usuarios.length,
                 totalAlumnos: alumnos.length,
                 totalCursos: cursos.length,
-                totalSecciones: 0, // TODO: Implementar cuando tengamos el servicio
+                totalSecciones: 0,
             });
         } catch (error) {
-            console.error('Error loading dashboard data:', error);
             showError('Error', 'No se pudieron cargar las estadísticas del dashboard');
         } finally {
             setLoading(false);
@@ -54,7 +50,7 @@ export const AdminDashboard: React.FC = () => {
     };
 
     if (loading) {
-        return <Loading message="Cargando dashboard..."/>;
+        return <Loading message="Cargando dashboard..." />;
     }
 
     return (

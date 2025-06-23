@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { alumnoService } from '../services/alumno.service';
 import { asistenciaService } from '../services/asistencia.service';
 import { materialService } from '../services/material.service';
@@ -21,36 +21,30 @@ export const AlumnoDashboard: React.FC = () => {
     const { user } = useAuth();
     const { showError } = useNotification();
 
-    // Si no hay usuario, mostrar loading (o podrías redirigir a login si tu lógica lo requiere)
     if (!user) {
         return <Loading message="Cargando usuario..." />;
     }
 
-    // Llamadas a servicios usando useApi
     const {
         data: alumno,
         loading: loadingAlumno,
-        error: errorAlumno
     } = useApi(() => user?.dni ? alumnoService.obtenerPorId(user.dni) : Promise.resolve(undefined), { immediate: !!user?.dni });
 
     const {
         data: asistencias = [],
         loading: loadingAsistencias,
-        error: errorAsistencias
     } = useApi<AsistenciaDto[]>(() => user?.dni ? asistenciaService.obtenerPorAlumno(user.dni) : Promise.resolve([]), { immediate: !!user?.dni });
 
     const {
         data: materiales = [],
         loading: loadingMateriales,
-        error: errorMateriales
     } = useApi<MaterialDto[]>(() => user?.id ? materialService.obtenerPorAlumno(user.id) : Promise.resolve([]), { immediate: !!user?.id });
 
-    // Calcular estadísticas reales
     const stats: AlumnoStats = {
         asistenciasPresente: (asistencias ?? []).filter(a => a.estado === 'Presente').length,
         asistenciasAusente: (asistencias ?? []).filter(a => a.estado === 'Ausente').length,
         materialesDisponibles: (materiales ?? []).length,
-        proximasClases: 0 // Puedes implementar lógica real si tienes endpoint
+        proximasClases: 0
     };
 
     const loading = loadingAlumno || loadingAsistencias || loadingMateriales;

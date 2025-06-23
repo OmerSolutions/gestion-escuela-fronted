@@ -1,13 +1,13 @@
 import React from 'react';
-import { usuarioService } from './services/usuario.service';
-import { useApi } from './hooks/useApi';
-import { UsuarioDto } from './types/usuario.types';
-import { useAuth } from './AuthContext';
-import { Loading } from './Loading';
-import { useNotification } from './NotificationContext';
-import { ErrorMessage } from './ErrorMessage';
-import { UsuarioForm } from './UsuarioForm';
-import { RolUsuario } from './types';
+import { usuarioService } from '../services/usuario.service';
+import { useApi } from '../hooks/useApi';
+import { UsuarioDto } from '../types/usuario.types';
+import { useAuth } from '../context/AuthContext';
+import { Loading } from '../components/Loading';
+import { useNotification } from '../components/NotificationContext';
+import { ErrorMessage } from '../components/ErrorMessage';
+import { UsuarioForm } from '../forms/UsuarioForm';
+import { RolUsuario } from '../types';
 
 export const UsuariosPage: React.FC = () => {
   const { user } = useAuth();

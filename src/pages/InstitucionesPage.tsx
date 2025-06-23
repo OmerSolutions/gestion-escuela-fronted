@@ -1,13 +1,13 @@
 import React from 'react';
-import { institucionService } from './services/institucion.service';
-import { useApi } from './hooks/useApi';
-import { InstitucionDto } from './types/institucion.types';
-import { useAuth } from './AuthContext';
-import { Loading } from './Loading';
-import { RolUsuario } from './types';
-import { useNotification } from './NotificationContext';
-import { ErrorMessage } from './ErrorMessage';
-import { InstitucionForm } from './InstitucionForm';
+import { institucionService } from '../services/institucion.service';
+import { useApi } from '../hooks/useApi';
+import { InstitucionDto } from '../types/institucion.types';
+import { useAuth } from '../context/AuthContext';
+import { Loading } from '../components/Loading';
+import { RolUsuario } from '../types';
+import { useNotification } from '../components/NotificationContext';
+import { ErrorMessage } from '../components/ErrorMessage';
+import { InstitucionForm } from '../forms/InstitucionForm';
 
 export const InstitucionesPage: React.FC = () => {
   const { user } = useAuth();

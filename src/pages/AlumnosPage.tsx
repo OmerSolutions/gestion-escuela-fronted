@@ -1,12 +1,12 @@
 import React from 'react';
-import { alumnoService } from './services/alumno.service';
-import { useApi } from './hooks/useApi';
-import { AlumnoDto } from './types/alumno.types';
-import { useAuth } from './AuthContext';
-import { Loading } from './Loading';
-import { useNotification } from './NotificationContext';
-import { ErrorMessage } from './ErrorMessage';
-import { AlumnoForm } from './AlumnoForm';
+import { alumnoService } from '../services/alumno.service';
+import { useApi } from '../hooks/useApi';
+import { AlumnoDto } from '../types/alumno.types';
+import { useAuth } from '../context/AuthContext';
+import { Loading } from '../components/Loading';
+import { useNotification } from '../components/NotificationContext';
+import { ErrorMessage } from '../components/ErrorMessage';
+import { AlumnoForm } from '../forms/AlumnoForm';
 
 export const AlumnosPage: React.FC = () => {
   const { user } = useAuth();

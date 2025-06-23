@@ -1,12 +1,12 @@
 import React from 'react';
-import { cursoService } from './services/curso.service';
-import { useApi } from './hooks/useApi';
-import { CursoDto } from './types/curso.types';
-import { useAuth } from './AuthContext';
-import { Loading } from './Loading';
-import { useNotification } from './NotificationContext';
-import { ErrorMessage } from './ErrorMessage';
-import { CursoForm } from './CursoForm';
+import { cursoService } from '../services/curso.service';
+import { useApi } from '../hooks/useApi';
+import { CursoDto } from '../types/curso.types';
+import { useAuth } from '../context/AuthContext';
+import { Loading } from '../components/Loading';
+import { useNotification } from '../components/NotificationContext';
+import { ErrorMessage } from '../components/ErrorMessage';
+import { CursoForm } from '../forms/CursoForm';
 
 export const CursosPage: React.FC = () => {
   const { user } = useAuth();

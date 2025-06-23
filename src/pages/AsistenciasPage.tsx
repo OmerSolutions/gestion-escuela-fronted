@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { asistenciaService } from './services/asistencia.service';
-import { useApi } from './hooks/useApi';
-import { AsistenciaDto, ReporteAsistenciaDto } from './types/asistencia.types';
-import { useAuth } from './AuthContext';
-import { Loading } from './Loading';
-import { RolUsuario } from './types';
-import { useNotification } from './NotificationContext';
-import { ErrorMessage } from './ErrorMessage';
+import { asistenciaService } from '../services/asistencia.service';
+import { useApi } from '../hooks/useApi';
+import { AsistenciaDto, ReporteAsistenciaDto } from '../types/asistencia.types';
+import { useAuth } from '../context/AuthContext';
+import { Loading } from '../components/Loading';
+import { RolUsuario } from '../types';
+import { useNotification } from '../components/NotificationContext';
+import { ErrorMessage } from '../components/ErrorMessage';
 
 export const AsistenciasPage: React.FC = () => {
   const { user } = useAuth();

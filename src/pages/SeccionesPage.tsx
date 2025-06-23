@@ -1,13 +1,13 @@
 import React from 'react';
-import { seccionService } from './services/seccion.service';
-import { useApi } from './hooks/useApi';
-import { SeccionDto } from './types/seccion.types';
-import { useAuth } from './AuthContext';
-import { Loading } from './Loading';
-import { RolUsuario } from './types';
-import { useNotification } from './NotificationContext';
-import { ErrorMessage } from './ErrorMessage';
-import { SeccionForm } from './SeccionForm';
+import { seccionService } from '../services/seccion.service';
+import { useApi } from '../hooks/useApi';
+import { SeccionDto } from '../types/seccion.types';
+import { useAuth } from '../context/AuthContext';
+import { Loading } from '../components/Loading';
+import { RolUsuario } from '../types';
+import { useNotification } from '../components/NotificationContext';
+import { ErrorMessage } from '../components/ErrorMessage';
+import { SeccionForm } from '../forms/SeccionForm';
 
 export const SeccionesPage: React.FC = () => {
   const { user } = useAuth();

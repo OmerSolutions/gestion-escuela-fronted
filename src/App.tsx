@@ -9,6 +9,13 @@ import { MainLayout } from './layouts/MainLayout';
 import { LoginPage } from './pages/Login';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { DashboardPage } from './layouts/DashboardPage';
+import { UsuariosPage } from './pages/UsuariosPage';
+import { AlumnosPage } from './pages/AlumnosPage';
+import { CursosPage } from './pages/CursosPage';
+import { SeccionesPage } from './pages/SeccionesPage';
+import { AsistenciasPage } from './pages/AsistenciasPage';
+import { MaterialesPage } from './pages/MaterialesPage';
+import { InstitucionesPage } from './pages/InstitucionesPage';
 
 const App: React.FC = () => {
     return (
@@ -30,54 +37,41 @@ const App: React.FC = () => {
                                         <DashboardPage />
                                     </ProtectedRoute>
                                 } />
-
-                              {/*  <Route path={`${ROUTES.USUARIOS}/*`} element={
+                                <Route path={`${ROUTES.USUARIOS}/*`} element={
                                     <ProtectedRoute requiredRole={2}>
                                         <UsuariosPage />
                                     </ProtectedRoute>
                                 } />
-
                                 <Route path={`${ROUTES.ALUMNOS}/*`} element={
-                                    <ProtectedRoute requiredRole={[1, 2]}>
+                                    <ProtectedRoute requiredRoles={[1, 2]}>
                                         <AlumnosPage />
                                     </ProtectedRoute>
                                 } />
-
                                 <Route path={`${ROUTES.CURSOS}/*`} element={
-                                    <ProtectedRoute requiredRole={[1, 2]}>
+                                    <ProtectedRoute requiredRoles={[1, 2]}>
                                         <CursosPage />
                                     </ProtectedRoute>
                                 } />
-
                                 <Route path={`${ROUTES.SECCIONES}/*`} element={
-                                    <ProtectedRoute requiredRole={[1, 2]}>
+                                    <ProtectedRoute requiredRoles={[1, 2]}>
                                         <SeccionesPage />
                                     </ProtectedRoute>
                                 } />
-
                                 <Route path={`${ROUTES.ASISTENCIAS}/*`} element={
                                     <ProtectedRoute>
                                         <AsistenciasPage />
                                     </ProtectedRoute>
                                 } />
-
-                                <Route path={`${ROUTES.HORARIOS}/*`} element={
-                                    <ProtectedRoute>
-                                        <HorariosPage />
-                                    </ProtectedRoute>
-                                } />
-
                                 <Route path={`${ROUTES.MATERIALES}/*`} element={
                                     <ProtectedRoute>
                                         <MaterialesPage />
                                     </ProtectedRoute>
                                 } />
-
                                 <Route path={`${ROUTES.INSTITUCIONES}/*`} element={
                                     <ProtectedRoute requiredRole={2}>
                                         <InstitucionesPage />
                                     </ProtectedRoute>
-                                } />*/}
+                                } />
 
                                 {/* Ruta 404 */}
                                 <Route path="*" element={
