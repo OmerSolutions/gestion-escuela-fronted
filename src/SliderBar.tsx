@@ -34,6 +34,69 @@ export const Sidebar: React.FC = () => {
             ),
             roles: [2], // Solo admin
         },
+        {
+            name: 'Alumnos',
+            path: ROUTES.ALUMNOS,
+            icon: (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87M16 3.13a4 4 0 010 7.75M8 3.13a4 4 0 010 7.75" />
+                </svg>
+            ),
+            roles: [1, 2], // Profesor y admin
+        },
+        {
+            name: 'Cursos',
+            path: ROUTES.CURSOS,
+            icon: (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 20h9" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4h9" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4h16v16H4z" />
+                </svg>
+            ),
+            roles: [1, 2],
+        },
+        {
+            name: 'Secciones',
+            path: ROUTES.SECCIONES,
+            icon: (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                </svg>
+            ),
+            roles: [1, 2],
+        },
+        {
+            name: 'Instituciones',
+            path: ROUTES.INSTITUCIONES,
+            icon: (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M3 6h18M3 14h18M3 18h18" />
+                </svg>
+            ),
+            roles: [2], // Solo admin
+        },
+        {
+            name: 'Materiales',
+            path: ROUTES.MATERIALES,
+            icon: (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 20h9M12 4h9M4 4h16v16H4z" />
+                </svg>
+            ),
+            roles: [0, 1, 2], // Todos los roles
+        },
+        {
+            name: 'Asistencias',
+            path: ROUTES.ASISTENCIAS,
+            icon: (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2a4 4 0 014-4h4" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7V5a4 4 0 014-4h4" />
+                </svg>
+            ),
+            roles: [0, 1, 2], // Todos los roles
+        },
         // ... resto de items
     ];
 
